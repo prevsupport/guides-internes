@@ -47,6 +47,7 @@
     .card-tag { display:inline-block; font-size:0.68rem; font-weight:bold; text-transform:uppercase; letter-spacing:0.05em; background:var(--blue-light); color:var(--blue); border-radius:3px; padding:2px 6px; margin-top:0.5rem; }
 
     .no-results { display:none; text-align:center; color:var(--muted); font-size:0.9rem; padding:1.5rem 0 2.5rem; }
+    .bureau-empty { display:none; color:var(--muted); font-size:0.85rem; font-style:italic; padding:0.5rem 0 2.5rem; }
 
     footer { text-align:center; padding:1.5rem; font-size:0.78rem; color:var(--muted); border-top:1px solid var(--border); margin-top:1rem; }
     footer a { color:var(--blue); text-decoration:none; }
@@ -170,6 +171,7 @@
         </a>
 
       </div>
+      <p class="bureau-empty" id="bureauEmpty">Aucun guide dans cette catégorie pour le moment.</p>
     </div>
 
     <div class="guide-section" id="section-cyber">
@@ -206,6 +208,8 @@
     const searchInput = document.getElementById('guideSearch');
     const filterTabs = document.querySelectorAll('#bureauFilters .filter-tab');
     const noResults = document.getElementById('noResults');
+    const bureauEmpty = document.getElementById('bureauEmpty');
+    const bureauSection = document.getElementById('section-bureautique');
     let activeCategory = 'all';
 
     function applyFilters() {
@@ -218,12 +222,30 @@
         const matchesCategory = !inBureau || activeCategory === 'all' || cat === activeCategory;
         card.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
       });
+
+      // La section Bureautique reste toujours visible (menu + filtres) : elle affiche
+      // un message "vide" plutôt que de disparaître quand une catégorie n'a rien.
       document.querySelectorAll('.guide-section').forEach(function (sec) {
+        if (sec === bureauSection) return;
         const visible = Array.from(sec.querySelectorAll('.guide-card')).some(function (c) {
           return c.style.display !== 'none';
         });
         sec.style.display = visible ? '' : 'none';
       });
+
+      const bureauVisibleCount = Array.from(bureauSection.querySelectorAll('.guide-card')).filter(function (c) {
+        return c.style.display !== 'none';
+      }).length;
+      // Si une recherche est en cours et qu'elle ne trouve rien dans Bureautique, on masque
+      // la section (comme les autres) ; sinon (recherche vide, juste un filtre de catégorie),
+      // on garde la section avec le message "vide".
+      if (q && bureauVisibleCount === 0) {
+        bureauSection.style.display = 'none';
+      } else {
+        bureauSection.style.display = '';
+        bureauEmpty.style.display = bureauVisibleCount === 0 ? 'block' : 'none';
+      }
+
       const anyVisible = Array.from(document.querySelectorAll('.guide-card')).some(function (c) {
         return c.style.display !== 'none';
       });
