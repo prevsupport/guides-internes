@@ -343,6 +343,18 @@ h1, h2, h3 {
   width: 0%;
   transition: width 0.1s linear;
 }
+.home-btn {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 6px; border: 1px solid var(--prev-blue);
+  color: var(--prev-blue); text-decoration: none; font-size: 14px; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.home-btn:hover { background: var(--prev-blue); color: #fff; }
+@media (max-width: 480px) {
+  .home-btn { padding: 6px 10px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
@@ -355,6 +367,7 @@ h1, h2, h3 {
     <h1>Guide kDrive</h1>
     <p>Accès, partage et gestion des fichiers sur kDrive Infomaniak</p>
   </div>
+ <a class="home-btn" href="index.html">&larr; Menu</a>
 </div>
 
 <div class="dots-bar" id="dotsBar">
