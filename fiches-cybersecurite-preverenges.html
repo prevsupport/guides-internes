@@ -269,6 +269,18 @@ h1, h2, h3 { font-weight: 700; letter-spacing: 0.2px; }
   .instr-list li strong, .symptom-list li { font-size: 14.5px; }
   .contact-bar { font-size: 13px; }
 }
+.home-btn {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 6px; border: 1px solid var(--prev-blue);
+  color: var(--prev-blue); text-decoration: none; font-size: 14px; font-weight: 700;
+  white-space: nowrap; flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.home-btn:hover { background: var(--prev-blue); color: #fff; }
+@media (max-width: 480px) {
+  .home-btn { padding: 6px 10px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
@@ -279,6 +291,7 @@ h1, h2, h3 { font-weight: 700; letter-spacing: 0.2px; }
     <h1>Fiches réflexes cybersécurité</h1>
     <p>Que faire en cas d’incident&nbsp;? — Commune de Préverenges</p>
   </div>
+<a class="home-btn" href="index.html">&larr; Menu</a>
 </div>
 
 <div class="tabs-bar" id="tabsBar">
